@@ -6,8 +6,8 @@
 #include <libgba-sprite-engine/sprites/sprite_builder.h>
 #include <libgba-sprite-engine/gba/tonc_memmap.h>
 #include <libgba-sprite-engine/background/text_stream.h>
-#include "flying_stuff_scene.h"
 #include "kul.h"
+#include "flying_stuff_scene.h"
 
 std::vector<Sprite *> FlyingStuffScene::sprites() {
     return {
@@ -60,10 +60,10 @@ void FlyingStuffScene::load() {
 }
 
 void FlyingStuffScene::tick(u16 keys) {
-    scrollX += 1;
-
-    rotation += rotationDiff;
-    kulFlying.get()->rotate(rotation);
-    player.get()->rotate(rotation);
-    bg.get()->scroll(scrollX, scrollY);
+//    scrollX += 1;
+//
+//    rotation += rotationDiff;
+//    kulFlying.get()->rotate(rotation);
+//    player.get()->rotate(rotation);
+//    bg.get()->scroll(scrollX, scrollY);
 }

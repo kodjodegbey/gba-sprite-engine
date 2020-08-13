@@ -11,9 +11,8 @@ class SampleStartScene : public Scene {
 private:
     std::unique_ptr<Sprite> animation;
     std::unique_ptr<Sprite> spelerStartScreen;
-    std::unique_ptr<Sprite> smiley;
-    bool pressingAorB = false;
-
+    std::unique_ptr<Sprite> munt;
+    std::unique_ptr<Background> bg;
 public:
     std::vector<Sprite *> sprites() override;
     std::vector<Background *> backgrounds() override;

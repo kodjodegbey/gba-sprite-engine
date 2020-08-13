@@ -19,7 +19,7 @@ std::vector<Background *> SampleStartScene::backgrounds() {
 }
 
 std::vector<Sprite *> SampleStartScene::sprites() {
-    return {  animation.get(), finalFantasyGuy.get() };
+    return {animation.get(), spelerStartScreen.get() };
 }
 
 void SampleStartScene::load() {
@@ -35,7 +35,7 @@ void SampleStartScene::load() {
             .withLocation(50, 50)
             .buildPtr();
 
-    finalFantasyGuy = builder
+    spelerStartScreen = builder
             .withData(lopen_jongenTiles, sizeof(lopen_jongenTiles))
             .withSize(SIZE_16_16)
             .withAnimated(2, 10)
