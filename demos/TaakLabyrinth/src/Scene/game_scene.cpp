@@ -128,18 +128,18 @@ void Game::tick(u16 keys) {
             TextStream::instance().clear();
     }
     isText=false;
-    if(!spelerSprite->isOffScreen()||levens>0){
+    if(levens>0){
         if( aantalMunten ==0){
             if(!engine->isTransitioning()) {
 
                 engine->transitionIntoScene(new ExtraGame (engine,score,keuzeSpeler), new FadeOutScene(3));
             }
         }else{
-            if (spelerY < 32) {
+            if (spelerY < 35) {
                 if (scrollY > 0) {
                     scrollY = scrollY - 1;
                     bg->scroll(0, scrollY);
-                    spelerY = 32;
+                    spelerY = 35;
                 }
             } else if (spelerY > 100) {
                 if (scrollY < 96) {
@@ -199,6 +199,7 @@ void Game::tick(u16 keys) {
             }else{
                 bonusSprite3->moveTo(68,50-scrollY);
             }
+            spelerOpScherm();
 
             spelerSprite->moveTo(spelerX,spelerY);
         }
@@ -224,6 +225,7 @@ void Game::tick(u16 keys) {
     }
 
 }
+
 
 void Game::tegenBox() {
     if(spelerSprite->collidesWith(*box)){

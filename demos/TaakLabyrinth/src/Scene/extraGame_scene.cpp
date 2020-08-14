@@ -34,16 +34,16 @@ std::vector<Sprite *> ExtraGame::sprites() {
     sprites.push_back(spelerModel->getSpelerSprite());
     return sprites;
 }
-std::unique_ptr<BonusModel> ExtraGame::maakMunten(int x,int y) {
-    return std::unique_ptr<BonusModel>(new BonusModel(spriteBuilder
-    ->withLocation(x, y)
-    .buildWithDataOf(*muntSprite.get()),x,y));
-}
+//std::unique_ptr<BonusModel> ExtraGame::maakMunten(int x,int y) {
+//    return std::unique_ptr<BonusModel>(new BonusModel(spriteBuilder
+//    ->withLocation(x, y)
+//    .buildWithDataOf(*muntSprite.get()),x,y));
+//}
 
 void ExtraGame::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager());
-    spriteBuilder = std::unique_ptr<SpriteBuilder<Sprite>>(new SpriteBuilder<Sprite>);
+//    spriteBuilder = std::unique_ptr<SpriteBuilder<Sprite>>(new SpriteBuilder<Sprite>);
     SpriteBuilder<Sprite> builder;
 
     if(keuze==1){

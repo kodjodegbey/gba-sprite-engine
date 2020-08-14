@@ -136,6 +136,18 @@ public:
          box->moveTo(200,140);
 
     }
+    void spelerOpScherm(){
+        if(spelerSprite->getX()<=8 ){
+                spelerX=9;
+        }else if(spelerSprite->getX()>=GBA_SCREEN_WIDTH-16){
+            spelerX=GBA_SCREEN_WIDTH-20;
+        }
+        if(spelerSprite->getY()<=22 ){
+            spelerY=24;
+        }else if(spelerSprite->getY()>=GBA_SCREEN_HEIGHT-16){
+            spelerY=GBA_SCREEN_HEIGHT-32;
+        }
+    }
 
     void tegenBox();
 };

@@ -31,8 +31,6 @@ private:
     std::unique_ptr<Sprite> bomSprite2;
     std::unique_ptr<Sprite> bomSprite3;
 
-    std::unique_ptr<BonusModel> maakMunten(int x, int y);
-    std::unique_ptr<SpriteBuilder<Sprite>> spriteBuilder;
 
     int score =0 ;
     bool wisselPlaatst = false;
@@ -237,9 +235,7 @@ public:
         spelerModel->getSpelerSprite()->moveTo(200,90);
 
     }
-    void beweegSpeler(){
 
-    }
 };
 
 
