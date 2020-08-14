@@ -4,25 +4,36 @@
 
 #include "speler.h"
 
-void::Speler::move() {
+void::Speler::move(int getal) {
     if (getDx() == 1) {
+        if(getal==1){
+            spelerSprite->makeAnimated(9,3,5);
+        }
         getSpelerSprite()->setVelocity(+2, 0);
-//        getSpelerSprite()->animateToFrame(3);
+
     } else if (getDx() == -1) {
         getSpelerSprite()->setVelocity(-2, 0);
-//        getSpelerSprite()->animateToFrame(3);
+        if(getal==1){
+            spelerSprite->makeAnimated(3,3,5);
+        }
 
     } else if (getDy() == 1){
         getSpelerSprite()->setVelocity(0, +2);
-//        getSpelerSprite()->animateToFrame(3);
+        if(getal==1){
+            spelerSprite->makeAnimated(6,3,5);
+        }
+
     }
     else if (getDy() == -1){
         getSpelerSprite()->setVelocity(0, -2);
-//        getSpelerSprite()->animateToFrame(3);
+        if(getal==1){
+            spelerSprite->makeAnimated(0,3,5);
+        }
+
     }
     else {
         getSpelerSprite()->setVelocity(0, 0);
-        getSpelerSprite()->animateToFrame(0);
+        spelerSprite->stopAnimating();
     }
 }
 
@@ -30,15 +41,10 @@ void::Speler::moveSpelerInGame(int x, int y) {
  getSpelerSprite()->moveTo(x,y);
 }
 void::Speler::tick(int getal) {
-    if(getal==0){
-    }else if(getal==1){
-        move();
-    }else{
-
-    }
-
-//    if(!getSpelerSprite()->isOffScreen()){
-//        move();
-//    }
-
+    move(getal);
 }
+
+
+
+
+

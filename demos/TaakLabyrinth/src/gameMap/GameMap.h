@@ -79,49 +79,33 @@ private:
                             {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,}};
 public:
 
-    int getNumOpRooster(int x,int y,Richting huidigRichting){
-        int centerX=x+4;
-        int centerY = y+4;
-        int volgendeX=0;
-        int volgendeY=0;
-        if(huidigRichting == Richting::BOVEN){
-
-        }else if (huidigRichting == Richting::BENEDEN){
-
-        }else if(huidigRichting == Richting::LINKS){
-
-        }else if (huidigRichting == Richting::RECHTS){
-
-        }
-        return gameMatrix[volgendeY][volgendeX];
-    }
  bool isBewegingMogelijk(int spelerX,int spelerY,Richting huidigRichting){
-     int huidigeX=(spelerX+8)/8;
-     int huidigeY=(spelerY+8)/8;
+     int huidigeX=(spelerX+4)/8;
+     int huidigeY=(spelerY+4)/8;
     int volgendeX = 0;
     int volgendeY =0 ;
     if (huidigRichting == Richting::BOVEN){
         volgendeX=huidigeX;
-        volgendeY=huidigeY-8;
+        volgendeY=huidigeY-1;
         if(gameMatrix[volgendeX][volgendeY]==1){
             return true;
         }
     }else if (huidigRichting == Richting::BENEDEN){
          volgendeX=huidigeX;
-         volgendeY=huidigeY+8;
+         volgendeY=huidigeY+1;
         if(gameMatrix[volgendeX][volgendeY]==1){
             return true;
         }
      }
     else if (huidigRichting == Richting::LINKS){
-        volgendeX=huidigeX-8;
+        volgendeX=huidigeX-1;
         volgendeY=huidigeY;
         if(gameMatrix[volgendeX][volgendeY]==1){
             return true;
         }
     }
     else if (huidigRichting == Richting::RECHTS){
-        volgendeX=spelerX+8;
+        volgendeX=spelerX+1;
         volgendeY=huidigeY;
         if(gameMatrix[volgendeX][volgendeY]==1){
             return true;

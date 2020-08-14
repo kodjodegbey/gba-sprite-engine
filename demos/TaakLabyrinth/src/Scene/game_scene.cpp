@@ -167,12 +167,26 @@ void Game::tick(u16 keys) {
             tegenBox();
             if(keys & KEY_LEFT) {
                 spelerX-=1;
+                if( keuzeSpeler==1){
+                    spelerSprite->makeAnimated(3,3,5);
+                }
             } else if(keys & KEY_RIGHT) {
                 spelerX+=1;
+                if(keuzeSpeler==1){
+                    spelerSprite->makeAnimated(9,3,5);
+                }
             }else if(keys & KEY_UP){
                 spelerY-=1;
+                if(keuzeSpeler==1){
+                    spelerSprite->makeAnimated(0,3,5);
+                }
             } else if(keys & KEY_DOWN){
                 spelerY+=1;
+                if(keuzeSpeler==1){
+                    spelerSprite->makeAnimated(6,3,5);
+                }
+            }else if(!keys){
+                spelerSprite->stopAnimating();
             }
             box.get()->moveTo(200,50-scrollY);
 
@@ -181,7 +195,9 @@ void Game::tick(u16 keys) {
             }else{
                 bonusSprite3->moveTo(68,50-scrollY);
             }
+
             spelerSprite->moveTo(spelerX,spelerY);
+//            spelerSprite->stopAnimating();
         }
 
 

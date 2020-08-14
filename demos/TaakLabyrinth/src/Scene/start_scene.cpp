@@ -24,7 +24,6 @@
 std::vector<Background *> SampleStartScene::backgrounds() {
     return {bg.get()};
 }
-//hier moet alles komen dat ik nodig heb voor de sceen
 std::vector<Sprite *> SampleStartScene::sprites() {
     return {spelerStartScreen.get(),munt.get(),animation.get()};
 }
@@ -39,42 +38,32 @@ void SampleStartScene::load() {
             .withLocation(110, 130)
             .withData(spelerSpelTiles, sizeof(spelerSpelTiles))
             .withSize(SIZE_16_16)
-//            .withAnimated(10, 2,10)
+            .withAnimated(9, 3,15)
             .buildPtr();
     animation = builder
             .withLocation(150, 130)
             .withData(rubiTiles, sizeof(rubiTiles))
             .withSize(SIZE_16_16)
-//            .withAnimated(10, 2,10)
             .buildPtr();
     munt = builder
             .withData(bonusTiles, sizeof(bonusTiles))
             .withSize(SIZE_16_16)
             .withLocation(130, 130)
             .buildPtr();
-    TextStream::instance().setText("PRESS START", 12, 9);
-    TextStream::instance().setText("Labyrinth", 3, 10);
-
     bg = std::unique_ptr<Background>(new Background(0, speltitelTiles, sizeof(speltitelTiles), speltitelMap, sizeof(speltitelMap)));
     bg.get()->useMapScreenBlock(24);
-
-//    engine->getTimer()->start();
 }
 
 void SampleStartScene::tick(u16 keys) {
-//    TextStream::instance().setText("Druk A voor zelda", 0, 1);
-//    TextStream::instance().setText("Druk B voor finalFantasie guy", 1, 1);
     int keuze=0;
     if(keys & KEY_A) {
         keuze = 1;
         if(!engine->isTransitioning()) {
-            TextStream::instance() << "entered: starting next scene";
             engine->transitionIntoScene(new Game (engine,keuze), new FadeOutScene(2));
         }
     }else if(keys & KEY_B) {
         keuze =2;
         if(!engine->isTransitioning()) {
-            TextStream::instance() << "entered: starting next scene";
             engine->transitionIntoScene(new Game (engine,keuze), new FadeOutScene(2));
         }
     }
@@ -87,7 +76,6 @@ void SampleStartScene::tick(u16 keys) {
     }else if(keys & KEY_START){
         keuze =2;
         if(!engine->isTransitioning()) {
-            TextStream::instance() << "entered: starting next scene";
             engine->transitionIntoScene(new Game (engine,keuze), new FadeOutScene(2));
         }
     }

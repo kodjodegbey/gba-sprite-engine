@@ -34,30 +34,11 @@ std::vector<Sprite *> ExtraGame::sprites() {
     sprites.push_back(spelerModel->getSpelerSprite());
     return sprites;
 }
-//return std::unique_ptr<Sprite>(new BonusModel(spriteBuilder->withLocation(GBA_SCREEN_WIDTH/2, 0).buildWithDataOf(*muntSprite.get()),0,0));
 std::unique_ptr<BonusModel> ExtraGame::maakMunten(int x,int y) {
     return std::unique_ptr<BonusModel>(new BonusModel(spriteBuilder
     ->withLocation(x, y)
     .buildWithDataOf(*muntSprite.get()),x,y));
 }
-
-
-//void ExtraGame ::verwijderMunten() {
-//    munten.erase(
-//            std::remove_if(munten.begin(), munten.end(), [](std::unique_ptr<BonusModel> &s) { return s->isOffScreen(); }),
-//            munten.end());
-//}
-//void ExtraGame::verwijderBommen() {
-//    bommen.erase(
-//            std::remove_if(bommen.begin(), bommen.end(), [](std::unique_ptr<BomModel> &s) { return s->isOffScreen(); }),
-//            bommen.end());
-//
-//}
-
-//std::unique_ptr<BomModel> ExtraGame::maakBommen(){
-//    return std::unique_ptr<BomModel>(new BomModel(spriteBuilder->withLocation(GBA_SCREEN_WIDTH/2, 0).buildWithDataOf(*bomsprite.get()),0,0));
-//}
-
 
 void ExtraGame::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
@@ -177,7 +158,7 @@ void ExtraGame::tick(u16 keys) {
             score+= -(rand()%(10 + 1) );
         }
         moveItems();
-        spelerModel->tick(1);
+        spelerModel->tick(keuze);
     }
 
 }

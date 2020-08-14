@@ -25,7 +25,7 @@ public :
     int getY(){ return getSpelerSprite()->getY();}
     bool isDood(){return dood ;}
     void setDood(bool dood){this->dood = dood ;}
-    void move();
+    void move(int getal);
     Sprite* getSpelerSprite() { return spelerSprite.get(); }
     void tick(int getal);
     void moveSpelerInGame(int x, int y);

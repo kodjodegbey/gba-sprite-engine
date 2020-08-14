@@ -64,52 +64,6 @@ public:
     void load() override;
     void tick(u16 keys) override;
     void resetGame() ;
-//    void beweegSpeler(u16 keys){
-//        if(keys & KEY_LEFT) {
-//
-//            bool beweeg = gameMap.isBewegingMogelijk(spelerModel->getY(), spelerModel->getX(),Richting::LINKS);
-//            TextStream::instance().setText(std::string("beweegL =")+std::to_string(beweeg), 7, 10);
-//            TextStream::instance().setText(std::string("waarde=")+std::to_string(gameMap.getNumOpRooster(spelerModel->getY(),spelerModel->getX())), 6, 10);
-//
-//            if(beweeg){
-//                spelerModel->setDx(-1);
-//                TextStream::instance().setText("L", 10, 10);
-//            }
-//        } else if(keys & KEY_RIGHT) {
-//            TextStream::instance().setText("r", 10, 0);
-//            bool beweeg = gameMap.isBewegingMogelijk(spelerModel->getY(), spelerModel->getY(),Richting::RECHTS);
-//            TextStream::instance().setText(std::string("yMAp=")+std::to_string(gameMap.getNumOpRooster(spelerModel->getY(),spelerModel->getX())), 6, 10);
-//            TextStream::instance().setText(std::string("beweegR =")+std::to_string(beweeg), 7, 10);
-//            if(beweeg){
-//                spelerModel->setDx(1);
-//            }
-//        }else if(keys & KEY_UP){
-//            TextStream::instance().setText("b", 10, 0);
-//            bool beweeg = gameMap.isBewegingMogelijk(spelerModel->getY(), spelerModel->getX(),Richting::BOVEN);
-//            TextStream::instance().setText(std::string("yMAp=")+std::to_string(gameMap.getNumOpRooster(spelerModel->getY(),spelerModel->getX())), 6, 10);
-//            TextStream::instance().setText(std::string("beweegB =")+std::to_string(beweeg), 7, 10);
-//            if(beweeg){
-//                spelerModel->setDy(-1);
-//            }
-//
-//
-//        } else if(keys & KEY_DOWN){
-//            TextStream::instance().setText("O", 10, 0);
-//            bool beweeg = gameMap.isBewegingMogelijk(spelerModel->getY(), spelerModel->getX(),Richting::BENEDEN);
-//            TextStream::instance().setText(std::string("yMAp=")+std::to_string(gameMap.getNumOpRooster(spelerModel->getY(),spelerModel->getX())), 6, 10);
-//            TextStream::instance().setText(std::string("beweegO =")+std::to_string(beweeg), 7, 10);
-//            if(beweeg){
-//                spelerModel->setDy(1);
-//            }
-//
-//        }else if (!keys){
-//            spelerModel->setDx(0);
-//            spelerModel->setDy(0);
-//            TextStream::instance().setText("bolt niet", 10, 0);
-//            TextStream::instance().setText(std::string("yMAp=")+std::to_string(gameMap.getNumOpRooster(spelerModel->getY(),spelerModel->getX())), 6, 10);
-//        }
-//    }
-
     void tegenBom(){
         if(spelerSprite->collidesWith(*bomSprite1)){
             bomSprite1->moveTo(-100,10);
