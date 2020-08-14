@@ -111,8 +111,6 @@ void ExtraGame::load() {
             .withLocation(200, 20)
             .buildPtr();
     engine->getTimer()->start();
-//    bomCooldown = Item_Cooldown_start;
-//    muntCooldown = Item_Cooldown_start;
     spelerModel = std::unique_ptr<Speler> (new Speler(std::move(speler)));
 }
 
@@ -123,12 +121,11 @@ void ExtraGame::tick(u16 keys) {
         if(keys & KEY_A) {
             if(!engine->isTransitioning()) {
                 TextStream::instance() << "entered: starting next scene";
-                engine->transitionIntoScene(new Game (engine,1), new FadeOutScene(2));
+                engine->setScene(new Game (engine,1));
             }
         }else if(keys & KEY_B) {
             if(!engine->isTransitioning()) {
-                TextStream::instance() << "entered: starting next scene";
-                engine->transitionIntoScene(new Game (engine,2), new FadeOutScene(2));
+                engine->setScene(new Game (engine,2));
             }
         }
     }else{

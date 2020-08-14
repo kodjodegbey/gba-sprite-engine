@@ -54,6 +54,7 @@ private:
     int keuzeSpeler=0;
     int boxGeraakt =1;
     bool tegengenMunt3 =false;
+    bool isText=false;
 
 
 public:
@@ -121,7 +122,18 @@ public:
         }
     }
     void restart(){
+         bomSprite1->moveTo(16,45);
+         bomSprite2->moveTo(140,40);
+         bomSprite3->moveTo(115,45);
 
+         bonusSprite1->moveTo(120,140);
+         bonusSprite2->moveTo(200,115);
+         bonusSprite3->moveTo(68,30);
+         bonusSprite4->moveTo(50,120);
+         spelerSprite->moveTo(100,100);
+        spelerX=spelerSprite->getX();
+        spelerY=spelerSprite->getY();
+         box->moveTo(200,140);
 
     }
 

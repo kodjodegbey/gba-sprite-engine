@@ -110,8 +110,8 @@ void Game::load() {
             .withLocation(50, 120)
             .buildPtr();
     TextStream::instance().setText("Scoren", 0, 0);
-    spelerX=spelerSprite.get()->getX();
-    spelerY=spelerSprite.get()->getY();
+    spelerX=spelerSprite->getX();
+    spelerY=spelerSprite->getY();
     scrollX=30;
     scrollY=95;
     bg->scroll(scrollX,scrollY);
@@ -124,8 +124,10 @@ spelerSprite->setStayWithinBounds(true);
 
 
 void Game::tick(u16 keys) {
-    TextStream::instance().clear();
-
+    if(isText){
+            TextStream::instance().clear();
+    }
+    isText=false;
     if(!spelerSprite->isOffScreen()||levens>0){
         if( aantalMunten ==0){
             if(!engine->isTransitioning()) {
@@ -150,13 +152,13 @@ void Game::tick(u16 keys) {
                 if (scrollX > 0) {
                     scrollX = scrollX - 1;
                     bg->scroll(scrollX, 0);
-                    spelerX = 30;
+                    spelerX = 50;
                 }
             } else if (spelerX > 150) {
                 if (scrollX < 11) {
                     scrollX = scrollX + 1;
                     bg->scroll(scrollX, 0);
-                    spelerX = 160;
+                    spelerX = 150;
                 }
             }
             TextStream::instance().setText("Scoren : " +std::to_string(score), 0, 0);
@@ -187,6 +189,8 @@ void Game::tick(u16 keys) {
                 }
             }else if(!keys){
                 spelerSprite->stopAnimating();
+            } else if(keys &KEY_START){
+                restart();
             }
             box.get()->moveTo(200,50-scrollY);
 
@@ -197,7 +201,6 @@ void Game::tick(u16 keys) {
             }
 
             spelerSprite->moveTo(spelerX,spelerY);
-//            spelerSprite->stopAnimating();
         }
 
 
@@ -225,6 +228,7 @@ void Game::tick(u16 keys) {
 void Game::tegenBox() {
     if(spelerSprite->collidesWith(*box)){
         if(boxGeraakt>0){
+            isText=true;
             boxGeraakt--;
             TextStream::instance().setText("U heb de box gevonden " , 9, 0);
             TextStream::instance().setText("U krijgt 20 extra punten ", 10, 0);
