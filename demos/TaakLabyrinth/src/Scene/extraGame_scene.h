@@ -229,8 +229,11 @@ public:
         muntSprite3->moveTo(300,300);
         muntSprite4->setVelocity(0,0 );
         muntSprite4->moveTo(300,300);
-        TextStream::instance().setText("Tijd is voorbij", 10, 1);
+        TextStream::instance().setText("Druk A voor rubi" , 1, 0);
+        TextStream::instance().setText("Druk B voor zelda", 2, 0);
+
         TextStream::instance().setText(std::string("U extra scoren is : ") + std::to_string(score ), 11, 1);
+        TextStream::instance().setText("Druk start ", 10, 1);
         spelerModel->getSpelerSprite()->moveTo(200,90);
 
     }

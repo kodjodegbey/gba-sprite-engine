@@ -19,8 +19,8 @@
 #include "../Data/sharedPal.h"
 #include "../Scene/extraGame_scene.h"
 #include "../../../demo1-basicfeatures/src/ff.h"
-#include "../Data/Speler.h"
 #include "../Data/rubi.h"
+#include "../Data/box.h"
 
 
 std::vector<Sprite *> Game::sprites() {
@@ -33,6 +33,7 @@ std::vector<Sprite *> Game::sprites() {
     sprites.push_back(bonusSprite3.get());
     sprites.push_back(bonusSprite4.get());
     sprites.push_back(spelerSprite.get());
+    sprites.push_back(box.get());
 
 
     return sprites;
@@ -49,11 +50,11 @@ void Game::load() {
     foregroundPalette = std::unique_ptr<ForegroundPaletteManager>(new ForegroundPaletteManager(sharedPal, sizeof(sharedPal)));
     backgroundPalette = std::unique_ptr<BackgroundPaletteManager>(new BackgroundPaletteManager(bgPal,sizeof(bgPal)));
     SpriteBuilder<Sprite> builder;
-//        extraGame = builder
-//            .withData(kulTiles, sizeof(kulTiles))
-//            .withSize(SIZE_64_32)
-//            .withLocation(30, 30)
-//            .buildPtr();
+        box = builder
+            .withData(boxTiles, sizeof(boxTiles))
+            .withSize(SIZE_16_16)
+            .withLocation(200, 140)
+            .buildPtr();
 
     if(keuzeSpeler==1){
         spelerSprite = builder
@@ -111,32 +112,26 @@ void Game::load() {
     TextStream::instance().setText("Scoren", 0, 0);
     spelerX=spelerSprite.get()->getX();
     spelerY=spelerSprite.get()->getY();
-    scrollX=20;
+    scrollX=30;
     scrollY=95;
     bg->scroll(scrollX,scrollY);
 
-    bg = std::unique_ptr<Background>(new Background(1, bgTiles, sizeof(bgTiles), bgMap, sizeof(bgMap)));
+    bg = std::unique_ptr<Background>(new Background(1, bgData, sizeof(bgData), bgMap, sizeof(bgMap)));
     bg.get()->useMapScreenBlock(16);
 
-
+spelerSprite->setStayWithinBounds(true);
 }
 
 
 void Game::tick(u16 keys) {
-    if(!spelerSprite.get()->isOffScreen()){
-        if(levens<=0 || aantalMunten ==0){
-            TextStream::instance().clear();
-            TextStream::instance().setText("U bent dood met een totaal scoren van " +std::to_string(score), 10, 10);
+    TextStream::instance().clear();
+
+    if(!spelerSprite->isOffScreen()||levens>0){
+        if( aantalMunten ==0){
             if(!engine->isTransitioning()) {
 
                 engine->transitionIntoScene(new ExtraGame (engine,score,keuzeSpeler), new FadeOutScene(3));
             }
-//            if(keys & KEY_START) {
-//                if(!engine->isTransitioning()) {
-//
-//                    engine->transitionIntoScene(new ExtraGame (engine,score), new FadeOutScene(3));
-//                }
-//            }
         }else{
             if (spelerY < 32) {
                 if (scrollY > 0) {
@@ -164,19 +159,12 @@ void Game::tick(u16 keys) {
                     spelerX = 160;
                 }
             }
-
-
-
             TextStream::instance().setText("Scoren : " +std::to_string(score), 0, 0);
             TextStream::instance().setText("Levens : " +std::to_string(levens), 0, 20);
-
-            TextStream::instance().setText(std::string("Xmap =")+std::to_string(spelerSprite->getX()/8), 4, 100);
-            TextStream::instance().setText(std::string("Ymap =")+std::to_string(spelerSprite->getY()/8), 5, 100);
-
-            TextStream::instance().setText(std::string("X =")+std::to_string(spelerSprite->getX()), 8, 100);
-            TextStream::instance().setText(std::string("Y =")+std::to_string(spelerSprite->getY()), 9, 100);
+            TextStream::instance().setText(std::string("Aantal munten: ")+std::to_string(aantalMunten), 1, 0);
             tegenBom();
             tegenMunt();
+            tegenBox();
             if(keys & KEY_LEFT) {
                 spelerX-=1;
             } else if(keys & KEY_RIGHT) {
@@ -186,14 +174,48 @@ void Game::tick(u16 keys) {
             } else if(keys & KEY_DOWN){
                 spelerY+=1;
             }
+            box.get()->moveTo(200,50-scrollY);
 
+            if(tegengenMunt3){
+
+            }else{
+                bonusSprite3->moveTo(68,50-scrollY);
+            }
             spelerSprite->moveTo(spelerX,spelerY);
         }
 
 
     }else{
-        TextStream::instance().clear();
-        TextStream::instance().setText("U bent dood met een totaal scoren van " +std::to_string(score), 10, 10);
+        TextStream::instance().setText("U totaal scoren is:  " +std::to_string(score), 0, 0);
+        TextStream::instance().setText("Druk A voor rubi" , 1, 0);
+        TextStream::instance().setText("Druk B voor zelda", 2, 0);
+        engine->delay(5000);
+        if(keys & KEY_A) {
+            if(!engine->isTransitioning()) {
+                TextStream::instance() << "entered: starting next scene";
+                engine->transitionIntoScene(new Game (engine,1), new FadeOutScene(2));
+            }
+        }else if(keys & KEY_B) {
+            if(!engine->isTransitioning()) {
+                TextStream::instance() << "entered: starting next scene";
+                engine->transitionIntoScene(new Game (engine,2), new FadeOutScene(2));
+            }
+        }
+
+    }
+
+}
+
+void Game::tegenBox() {
+    if(spelerSprite->collidesWith(*box)){
+        if(boxGeraakt>0){
+            boxGeraakt--;
+            TextStream::instance().setText("U heb de box gevonden " , 9, 0);
+            TextStream::instance().setText("U krijgt 20 extra punten ", 10, 0);
+            engine->delay(500000);
+            score +=20;
+        }
+
     }
 
 }

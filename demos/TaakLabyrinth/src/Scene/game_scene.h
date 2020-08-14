@@ -16,6 +16,7 @@
 #include "../Model/BomModel.h"
 #include "list"
 #include "../Model/speler.h"
+#include "start_scene.h"
 #include <iostream>
 using namespace std ;
 #define factor 8
@@ -33,9 +34,13 @@ private:
     std::unique_ptr<Sprite> bonusSprite2;
     std::unique_ptr<Sprite> bonusSprite3;
     std::unique_ptr<Sprite> bonusSprite4;
+    std::unique_ptr<Sprite> box;
 
     std::unique_ptr<Sprite> spelerSprite;
+
     std::unique_ptr<Background> bg;
+
+
     GameMap gameMap ;
     Richting richting;
     int score =100 ;
@@ -47,6 +52,9 @@ private:
     int scrollY;
     int aantalMunten=4;
     int keuzeSpeler=0;
+    int boxGeraakt =1;
+    bool tegengenMunt3 =false;
+
 
 public:
     Game(std::shared_ptr<GBAEngine> engine,int keuze) : Scene(engine),keuzeSpeler(keuze) {}
@@ -150,6 +158,7 @@ public:
         }else if(spelerSprite->collidesWith(*bonusSprite3)){
             bonusSprite3->moveTo(-100,60);
             score+= (rand()%(15 + 1) );
+            tegengenMunt3=true;
             aantalMunten -=1;
         }else if(spelerSprite->collidesWith(*bonusSprite4)){
         bonusSprite4->moveTo(-100,80);
@@ -157,6 +166,12 @@ public:
             aantalMunten -=1;
         }
     }
+    void restart(){
+
+
+    }
+
+    void tegenBox();
 };
 
 

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <libgba-sprite-engine/gba_engine.h>
 #include <libgba-sprite-engine/background/text_stream.h>
+#include <libgba-sprite-engine/effects/fade_out_scene.h>
 #include "extraGame_scene.h"
 #include "../Data/spelerSpel.h"
 #include "../../../demo3-foodthrowing/src/bullet_data.h"
@@ -12,6 +13,7 @@
 #include "../Data/bonusData.h"
 #include "../Data/bomData.h"
 #include "../Data/rubi.h"
+#include "game_scene.h"
 
 
 std::vector<Background *> ExtraGame::backgrounds() {
@@ -137,12 +139,21 @@ void ExtraGame::tick(u16 keys) {
     if(engine->getTimer()->getTotalMsecs()>30000 || aantalmunten<=0){
         stopGame();
     engine->getTimer()->stop();
+        if(keys & KEY_A) {
+            if(!engine->isTransitioning()) {
+                TextStream::instance() << "entered: starting next scene";
+                engine->transitionIntoScene(new Game (engine,1), new FadeOutScene(2));
+            }
+        }else if(keys & KEY_B) {
+            if(!engine->isTransitioning()) {
+                TextStream::instance() << "entered: starting next scene";
+                engine->transitionIntoScene(new Game (engine,2), new FadeOutScene(2));
+            }
+        }
     }else{
-        TextStream::instance().setText(std::to_string(score), 0, 1);
-        TextStream::instance().setText(engine->getTimer()->to_string(), 2, 1);
-        TextStream::instance().setText(std::to_string(spelerModel->getSpelerSprite()->getX()), 3, 1);
-        TextStream::instance().setText(std::to_string(spelerModel->getSpelerSprite()->getY()), 4, 1);
-        TextStream::instance().setText(std::to_string(aantalmunten), 5, 1);
+        TextStream::instance().setText(std::string("score")+std::to_string(score), 0, 0);
+        TextStream::instance().setText(engine->getTimer()->to_string(), 1, 0);
+        TextStream::instance().setText(std::string("Aantal munten: ")+std::to_string(aantalmunten), 2, 0);
 
 
         if(keys & KEY_LEFT) {
@@ -161,10 +172,8 @@ void ExtraGame::tick(u16 keys) {
             spelerModel->setDy(0);
         }
         if(tegenMunt()){
-            TextStream::instance().setText("bingo-L", 15, 1);
             score+= (rand()%(10 + 1) );
         }else if(tegenBom()){
-            TextStream::instance().setText("SHIT-L", 15, 1);
             score+= -(rand()%(10 + 1) );
         }
         moveItems();

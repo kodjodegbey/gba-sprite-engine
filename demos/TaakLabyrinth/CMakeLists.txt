@@ -18,7 +18,7 @@ add_executable(${PROJECT_NAME}.elf
         src/Model/BonusModel.cpp
         src/Model/BonusModel.h
 
-        src/gameMap/GameMap.h src/gameMap/Richting.h src/Data/bgSpel.h src/Data/sharedPal.h src/Data/rubi.h src/Data/extraGame.h src/Scene/extraGame_scene.cpp src/Scene/extraGame_scene.h src/Data/titleData.h src/Data/Speler.h)
+        src/gameMap/GameMap.h src/gameMap/Richting.h src/Data/bgSpel.h src/Data/sharedPal.h src/Data/rubi.h src/Data/box.h src/Scene/extraGame_scene.cpp src/Scene/extraGame_scene.h src/Data/titleData.h)
 
 target_link_libraries(${PROJECT_NAME}.elf gba-sprite-engine)
 

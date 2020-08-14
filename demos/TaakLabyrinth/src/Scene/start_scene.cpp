@@ -85,7 +85,7 @@ void SampleStartScene::tick(u16 keys) {
         spelerStartScreen->flipHorizontally(false);
         munt->moveTo(130,130);
     }else if(keys & KEY_START){
-        keuze =1;
+        keuze =2;
         if(!engine->isTransitioning()) {
             TextStream::instance() << "entered: starting next scene";
             engine->transitionIntoScene(new Game (engine,keuze), new FadeOutScene(2));
